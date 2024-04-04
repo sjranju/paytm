@@ -8,7 +8,7 @@ const authMiddleware = (req, res, next) => {
     if (!authheader || !authheader.startsWith('Bearer')) {
         res.status(403).json({})
     }
-    const token = header.split(' ')[1]
+    const token = authheader.split(' ')[1]
     try {
         const decodedtoken = jwt.verify(token, JWT_SECRET)
         if (decodedtoken) {
