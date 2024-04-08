@@ -1,9 +1,8 @@
-import React from 'react'
 
 const Header = ({ label }: { label: string }) => {
 
     return (
-        <div className='text-xl font-bold'>
+        <div className='text-2xl font-bold'>
             {label}
         </div>
     )

@@ -4,6 +4,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Signup from './pages/signup.js'
 import Signin from './pages/signin.js'
+import Dashboard from './pages/dashboard.js'
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,12 @@ const router = createBrowserRouter([
     element: <Signup />
   }, {
     path: '/signin',
+    element: <Signin />
+  }, {
+    path: '/dashboard',
+    element: <Dashboard />
+  }, {
+    path: '/send',
     element: <Signin />
   }
 ])
