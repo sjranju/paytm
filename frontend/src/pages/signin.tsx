@@ -35,7 +35,8 @@ function Signin() {
                         navigate('/dashboard')
                     }
                 }} />
-                {error &&
+                {
+                    error &&
                     <div className="text-sm font-semibold text-red-600">
                         {error}
                     </div>

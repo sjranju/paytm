@@ -5,6 +5,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Signup from './pages/signup.js'
 import Signin from './pages/signin.js'
 import Dashboard from './pages/dashboard.js'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import SendMoney from './components/SendMoney.js'
 
 const router = createBrowserRouter([
   {
@@ -18,12 +20,16 @@ const router = createBrowserRouter([
     element: <Dashboard />
   }, {
     path: '/send',
-    element: <Signin />
+    element: <SendMoney />
   }
 ])
 
+const queryClient = new QueryClient
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )
