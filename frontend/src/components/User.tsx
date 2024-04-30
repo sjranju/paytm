@@ -10,7 +10,7 @@ const User = ({ user }: { user: UserType }) => {
                 <div className="">{user.firstName}</div>
                 <div className="">{user.lastName}</div>
             </div>
-            <button className="bg-black text-white py-2 px-6 rounded-md font-semibold text-md hover:bg-gray-800"
+            <button className="bg-black text-white py-1.5 px-4 rounded-md font-semibold text-sm h-auto hover:bg-gray-800"
                 onClick={() => navigate('/send?id=' + user._id + '&name=' + user.firstName)}
             >Send Money</button>
         </div>

@@ -9,23 +9,23 @@ import { useNavigate } from 'react-router-dom'
 
 function Signin() {
 
-    const [userName, setUserName] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string>('')
     const navigate = useNavigate()
 
     return (
-        <div className='bg-blue-100 h-screen flex justify-center'>
-            <div className="flex flex-col items-center justify-center bg-white p-6 w-3/12 m-auto space-y-4">
+        <div className='h-screen flex justify-center'>
+            <div className="flex flex-col items-center justify-center bg-blue-50 rounded-md p-8 w-3/12 m-auto space-y-4 shadow-xl">
                 <div className='flex flex-col items-center space-y-1'>
                     <Header label={'Sign in'} />
                     <SubHeader content='Enter your credentials to access your account' />
                 </div>
-                <InputBox onChange={e => setUserName(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
+                <InputBox onChange={e => setUsername(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
                 <InputBox onChange={e => setPassword(e.target.value)} label="Password" placeholder="" type='password' />
                 <Button label='Sign In' onclick={async () => {
                     const response = await axios.post('http://localhost:3001/api/v1/user/signin', {
-                        userName,
+                        username,
                         password
                     })
                     if (response.status !== 200) {

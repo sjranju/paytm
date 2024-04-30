@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb+srv://singanoodiranjana:aJmn3bDkrMOf1QD6@cluster0.4qv8rg4.mongodb.net/paytm')
 
 const userSchema = mongoose.Schema({
-    userName: {
+    username: {
         type: String,
         required: true,
         unique: true,

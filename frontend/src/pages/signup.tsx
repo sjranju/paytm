@@ -11,7 +11,7 @@ const Signup = () => {
 
     const [firstName, setFirstName] = useState<string>('')
     const [lastName, setLastName] = useState<string>('')
-    const [userName, setUserName] = useState<string>('')
+    const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string>('')
     const navigate = useNavigate()
@@ -25,13 +25,13 @@ const Signup = () => {
                 </div>
                 <InputBox onChange={e => setFirstName(e.target.value)} label="First Name" placeholder="John" type='text' />
                 <InputBox onChange={e => setLastName(e.target.value)} label="Last Name" placeholder="Doe" type='text' />
-                <InputBox onChange={e => setUserName(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
+                <InputBox onChange={e => setUsername(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
                 <InputBox onChange={e => setPassword(e.target.value)} label="Password" placeholder="" type='password' />
                 <Button label='Sign Up' onclick={async () => {
                     const response = await axios.post('http://localhost:3001/api/v1/user/signup', {
                         firstName,
                         lastName,
-                        userName,
+                        username,
                         password
                     })
                     if (response.status !== 200) {

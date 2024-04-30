@@ -23,7 +23,7 @@ const SendMoney = () => {
                         {name}
                     </div>
                 </div>
-                <input type="text" placeholder="Amount" onChange={(e) => setAmount(parseInt(e.target.value))}
+                <input type="number" placeholder="Enter amount" id='amount' onChange={(e) => setAmount(parseInt(e.target.value))}
                     className="outline-none px-1 py-1.5 border rounded-md"></input>
                 <button className="bg-green-600 py-1 rounded-md text-white font-bold"
                     onClick={() => {

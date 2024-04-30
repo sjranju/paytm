@@ -1,16 +1,12 @@
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
-import { UsersType } from "../utils/interface"
-
 const Appbar = () => {
 
-    const { data } = useQuery({
-        queryKey: ['userData'],
-        queryFn: async () => {
-            const response: UsersType = await axios.get('http://localhost:3001/api/v1/user/bulk')
-            return response.user
-        }
-    })
+    // const { data } = useQuery({
+    //     queryKey: ['userData'],
+    //     queryFn: async () => {
+    //         const response: UsersType = await axios.get('http://localhost:3001/api/v1/user/bulk')
+    //         return response.user
+    //     }
+    // })
 
     return (
         <div className="w-full px-10 py-2 h-14 border-b">
