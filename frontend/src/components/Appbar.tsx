@@ -1,12 +1,8 @@
+import useAuth from "../utils/useAuth"
+
 const Appbar = () => {
 
-    // const { data } = useQuery({
-    //     queryKey: ['userData'],
-    //     queryFn: async () => {
-    //         const response: UsersType = await axios.get('http://localhost:3001/api/v1/user/bulk')
-    //         return response.user
-    //     }
-    // })
+    const { data, isSuccess, isLoading } = useAuth()
 
     return (
         <div className="w-full px-10 py-2 h-14 border-b">
@@ -15,9 +11,9 @@ const Appbar = () => {
                     Payments App
                 </div>
                 <div className="flex font-semibold items-center space-x-4 justify-center">
-                    <div>Hello, User</div>
+                    <div>Hello, <span className={`${isLoading && 'animate-pulse'}`}>{isSuccess && data?.username}</span></div>
                     <div className="flex justify-center items-center rounded-full bg-slate-200 h-10 w-10 text-center">
-                        U
+                        {data?.username[0].toUpperCase()}
                     </div>
                 </div>
             </div>

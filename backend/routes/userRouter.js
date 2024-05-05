@@ -13,6 +13,17 @@ const signupBody = zod.object({
     lastName: zod.string()
 })
 
+router.get('/me', authMiddleware, async (req, res) => {
+    const user = await User.findOne({ _id: req.userId })
+    if (user) {
+        return res.status(200).json({ username: user.firstName })
+    } else {
+        return res.status(401).json({
+            'message': 'Invalid token'
+        })
+    }
+})
+
 router.post('/signup', async (req, res) => {
     try {
         const { success } = signupBody.safeParse(req.body)

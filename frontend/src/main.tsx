@@ -7,6 +7,7 @@ import Signin from './pages/signin.js'
 import Dashboard from './pages/dashboard.js'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import SendMoney from './components/SendMoney.js'
+import ProtectedRoute from './utils/ProtectedRoute.js'
 
 const router = createBrowserRouter([
   {
@@ -17,10 +18,14 @@ const router = createBrowserRouter([
     element: <Signin />
   }, {
     path: '/dashboard',
-    element: <Dashboard />
+    element: <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
   }, {
     path: '/send',
-    element: <SendMoney />
+    element: <ProtectedRoute>
+      <SendMoney />
+    </ProtectedRoute>
   }
 ])
 
