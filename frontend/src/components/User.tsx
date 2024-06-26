@@ -6,11 +6,13 @@ const User = ({ user }: { user: UserType }) => {
     return (
         <div className="flex items-center justify-between mt-2 w-full">
             <div className="flex items-center space-x-1">
-                <div className="h-10 w-10 bg-slate-200 rounded-full flex items-center justify-center mr-2 font-semibold">{user.firstName[0]}</div>
+                <div className="h-9 w-9 bg-blue-900 rounded-full flex items-center justify-center mr-2 font-semibold text-white">
+                    {user.firstName[0]}
+                </div>
                 <div className="">{user.firstName}</div>
                 <div className="">{user.lastName}</div>
             </div>
-            <button className="bg-black text-white py-1.5 px-4 rounded-md font-semibold text-sm h-auto hover:bg-gray-800"
+            <button className="bg-blue-900 text-white py-1.5 px-4 rounded-md font-semibold text-sm h-auto hover:bg-blue-800"
                 onClick={() => navigate('/send?id=' + user._id + '&name=' + user.firstName)}
             >Send Money</button>
         </div>

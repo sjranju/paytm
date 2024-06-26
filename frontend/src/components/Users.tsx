@@ -1,42 +1,57 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
-import { UserType, UsersType } from "../utils/interface"
+import { useState } from "react"
+import { UsersType } from "../utils/interface"
 import User from "./User"
+import { useDebounce } from "use-debounce"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { useQuery } from "@tanstack/react-query"
+import useAuth from "../utils/useAuth"
 
 const Users = () => {
 
     const [filter, setFilter] = useState<string>('')
-    const [users, setUsers] = useState<UserType[]>([])
-
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        axios.get('http://localhost:3001/api/v1/user/bulk?filter=' + filter,
-            {
-                headers: {
-                    Authorization: 'Bearer ' + token
+    const { data: userData } = useAuth()
+    const { data: filteredData, isLoading } = useQuery({
+        queryKey: ['filteredUsers'],
+        queryFn: async () => {
+            const token = localStorage.getItem('token')
+            const response = await axios.get('http://localhost:3001/api/v1/user/bulk?filter=' + filter,
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
                 }
+            )
+            if (response.data) {
+                const usersData: UsersType = response.data
+                return usersData.user.filter(user => user.username !== userData?.username)
             }
-        ).then((response) => {
-            const usersData: UsersType = response.data
-            console.log(usersData.user)
-            setUsers(usersData.user)
-        })
-    }, [])
+        }
+    })
+    const [debouncedusers] = useDebounce(filteredData, 1000, { leading: true })
 
-    return (
-        <div className="px-10 ">
-            <div className="font-bold text-lg">
-                Users
+    return isLoading ?
+        <>
+            <Skeleton height={25} width={'80%'} style={{ marginLeft: '30px' }} />
+            <Skeleton height={25} width={'80%'} style={{ marginLeft: '30px' }} />
+            <Skeleton height={25} width={'80%'} style={{ marginLeft: '30px' }} />
+            <Skeleton height={25} width={'80%'} style={{ marginLeft: '30px' }} />
+        </>
+        : (
+            <div className="px-10 flex flex-col space-y-4">
+                <div className="font-bold text-lg">
+                    Users
+                </div>
+                <input placeholder="Search users..." type={"text"} value={filter}
+                    onChange={e => setFilter(e.target.value)} className="w-full outline-none border p-2 rounded-md mt-2 text-sm" />
+                {
+                    debouncedusers && debouncedusers.map((user) =>
+                        <User user={user} key={user._id} />
+                    )
+                }
             </div>
-            <input placeholder="Search users..." type={"text"} value={filter}
-                onChange={e => setFilter(e.target.value)} className="w-full outline-none border p-2 rounded-md mt-2 text-sm" />
-            {
-                users.map((user) =>
-                    <User user={user} key={user._id} />
-                )
-            }
-        </div>
-    )
+        )
 }
 
 export default Users

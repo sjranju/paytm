@@ -11,8 +11,8 @@ const useAuth = () => {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            const username: { username: string } = response.data
-            return username
+            const { username, firstName }: { username: string, firstName: string } = response.data
+            return { username, firstName }
         }
     })
     return ({ data, isLoading, isError, isSuccess, error })

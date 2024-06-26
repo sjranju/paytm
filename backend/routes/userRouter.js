@@ -16,7 +16,7 @@ const signupBody = zod.object({
 router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
-        return res.status(200).json({ username: user.firstName })
+        return res.status(200).json({ username: user.username, firstName: user.firstName })
     } else {
         return res.status(401).json({
             'message': 'Invalid token'
@@ -118,30 +118,34 @@ router.put('/', authMiddleware, (req, res) => {
 
 router.get('/bulk', authMiddleware, async (req, res) => {
     const filterParam = req.query.filter || ''
-
     const users = await User.find({
         $or: [
             {
                 firstName: {
-                    "$regex": filterParam
+                    "$regex": filterParam,
+                    "$options": "i"
                 }
             },
             {
                 lastName: {
-                    "$regex": filterParam
+                    "$regex": filterParam,
+                    "$options": "i"
                 }
             }
         ]
     })
 
-    res.status(200).json({
-        user: users.map((user) => ({
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            _id: user._id
-        }))
-    })
+    if (users) {
+        res.status(200).json({
+            user: users.map((user) => ({
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                _id: user._id
+            }))
+        })
+    }
+
 })
 
 module.exports = router

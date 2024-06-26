@@ -1,57 +1,63 @@
-import { useMutation } from "@tanstack/react-query"
-import axios from "axios"
-import { useState } from "react"
-import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { useEffect, useState } from "react"
+import { AiOutlineLoading3Quarters, AiOutlineCheckCircle } from "react-icons/ai"
 import { useSearchParams } from "react-router-dom"
+import useTransferAmount from "../utils/useTransferAmout"
+import { AxiosError } from "axios"
 
 const SendMoney = () => {
 
-    const [amount, setAmount] = useState<number>(0)
+    const [amount, setAmount] = useState<number | undefined>(undefined)
     const [searchParams] = useSearchParams()
     const id = searchParams.get('id')
     const name = searchParams.get('name')
-    const isValid = amount > 0
+    const isValid = amount && amount > 0
+    const transferAmount = useTransferAmount()
 
-    const useTransferAmount = useMutation({
-        mutationKey: ['transferAmount'],
-        mutationFn: async () => {
-            axios.post('http://localhost:3001/api/v1/account/transfer', {
-                to: id,
-                amount: amount
-            }, {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                }
-            })
-        },
-    })
+    useEffect(() => {
+        setAmount(undefined)
+    }, [transferAmount.isError])
 
     return (
-        <div className="w-3/12 p-10 border rounded-md flex flex-col items-center justify-center mx-auto mt-36 shadow-xl">
-            <div className="flex flex-col space-y-4 justify-center w-full">
-                <div className="font-bold text-xl text-center">
-                    Send Money
-                </div>
-                <div className="flex items-center space-x-2">
-                    <div className="h-10 w-10 bg-slate-200 rounded-full flex items-center justify-center">
-                        {name && name[0].toUpperCase()}
+        <div className="bg-sky-50 min-h-screen w-full flex flex-col justify-center items-center">
+            <div className="w-1/3 py-10 px-12 border rounded-md flex flex-col shadow-2xl bg-blue-50">
+                <div className="flex flex-col space-y-4 justify-center">
+                    <div className="font-bold text-xl text-center">
+                        Send Money
                     </div>
-                    <div className="font-semibold text-lg">
-                        {name}
+                    <div className="flex items-center space-x-2">
+                        <div className="h-9 w-9 bg-blue-800 rounded-full flex items-center justify-center text-white font-semibold">
+                            {name && name[0].toUpperCase()}
+                        </div>
+                        <div className="font-semibold text-lg">
+                            {name}
+                        </div>
                     </div>
-                </div>
-                <input type="number" placeholder="Enter amount" id='amount' onChange={(e) => setAmount(parseInt(e.target.value))}
-                    className="outline-none px-1 py-1.5 border rounded-md"></input>
+                    <div className="font-semibold">Amount (in Rs)</div>
+                    <input type="number" placeholder="Enter amount" id='amount' value={amount?.toString() || 0} onChange={(e) => setAmount(parseInt(e.target.value))}
+                        className="outline-none px-1 py-1.5 border rounded-md"></input>
 
-                {
-                    useTransferAmount.isPending ?
-                        <AiOutlineLoading3Quarters size={30} color='darkblue' width={30} className='animate-spin flex justify-center items-center mx-auto mt-32' />
-                        : useTransferAmount.isError ?
-                            <div className="text-red-500 text-xs">{useTransferAmount.error.message}</div>
-                            : useTransferAmount.isSuccess ? <div className="bg-green-600 text-white font-bold rounded-lg py-1.5 px-4 text-center">Success</div>
-                                : <button disabled={!isValid} className={`${isValid ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-600'} py-1.5 rounded-md font-bold`}
-                                    onClick={() => useTransferAmount.mutate()}>Initiate Transfer</button>
-                }
+                    {
+                        transferAmount.isPending ?
+                            <AiOutlineLoading3Quarters size={30} color='darkblue' width={30} className='animate-spin flex justify-center items-center mx-auto' />
+                            : transferAmount.isError ?
+                                <>
+                                    <div className="text-red-500 text-sm text-center">{transferAmount.error instanceof AxiosError ? transferAmount.error.response?.data.message : transferAmount.error.message}</div>
+                                    <button disabled={!isValid} className={`${isValid ? 'bg-blue-800 hover:bg-blue-700 text-white' : 'bg-gray-300 text-gray-600'} py-1.5 rounded-md font-bold`}
+                                        onClick={() =>
+                                            amount && id &&
+                                            transferAmount.mutate({ amount, id })}>Reinitiate Transfer</button>
+                                </>
+                                : transferAmount.isSuccess ?
+                                    <div className="bg-green-600 shadow-lg font-bold rounded-lg py-1.5 text-center text-white flex flex-row items-center justify-center space-x-1">
+                                        <p>Success</p>
+                                        <AiOutlineCheckCircle color="white" size={20} />
+                                    </div>
+                                    : <button disabled={!isValid} className={`${isValid ? 'bg-blue-800 hover:bg-blue-700 text-white' : 'bg-gray-300 text-gray-600'} py-1.5 rounded-md font-bold`}
+                                        onClick={() =>
+                                            amount && id &&
+                                            transferAmount.mutate({ amount, id })}>Initiate Transfer</button>
+                    }
+                </div>
             </div>
         </div>
     )

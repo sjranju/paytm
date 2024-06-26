@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BottomWarning from '../components/BottomWarning'
 import Button from '../components/Button'
 import Header from '../components/Header'
@@ -14,9 +14,15 @@ function Signin() {
     const [error, setError] = useState<string>('')
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (localStorage.getItem('token')?.length) {
+            navigate('/dashboard')
+        }
+    }, [])
+
     return (
-        <div className='h-screen flex justify-center'>
-            <div className="flex flex-col items-center justify-center bg-blue-50 rounded-md p-8 w-3/12 m-auto space-y-4 shadow-xl">
+        <div className='h-screen flex justify-center bg-blue-50'>
+            <div className="flex flex-col items-center justify-center bg-white rounded-md p-8 w-3/12 m-auto space-y-4 shadow-xl">
                 <div className='flex flex-col items-center space-y-1'>
                     <Header label={'Sign in'} />
                     <SubHeader content='Enter your credentials to access your account' />

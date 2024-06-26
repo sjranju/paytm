@@ -17,7 +17,7 @@ const Signup = () => {
     const navigate = useNavigate()
 
     return (
-        <div className="bg-blue-100 h-screen flex justify-center">
+        <div className="bg-blue-50 h-screen flex justify-center">
             <div className="flex flex-col items-center justify-center bg-white py-7 px-6 w-3/12 m-auto rounded-lg space-y-4">
                 <div className="flex flex-col items-center space-y-1">
                     <Header label={'Sign Up'} />

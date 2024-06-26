@@ -7,7 +7,7 @@ const Dashboard = () => {
     return (
         <div>
             <Appbar />
-            <div className="flex flex-col space-y-4">
+            <div className="min-h-screen flex flex-col space-y-6 bg-sky-50">
                 <Balance />
                 <Users />
             </div>
