@@ -1,16 +1,18 @@
-const express = require('express')
-const zod = require("zod")
-const jwt = require('jsonwebtoken')
-const router = express.Router()
-const { User, Account } = require('../db')
-const JWT_SECRET = require("../config")
-const authMiddleware = require("../middleware")
+import { Router } from 'express'
+import { object, string } from "zod"
+import jwt from 'jsonwebtoken'
+const router = Router()
+import db from '../db.js'
+import JWT_SECRET from "../config.js"
+import authMiddleware from "../middleware.js"
+const { User, Account } = db
+const { sign } = jwt
 
-const signupBody = zod.object({
-    username: zod.string().email(),
-    password: zod.string(),
-    firstName: zod.string(),
-    lastName: zod.string()
+const signupBody = object({
+    username: string().email(),
+    password: string(),
+    firstName: string(),
+    lastName: string()
 })
 
 router.get('/me', authMiddleware, async (req, res) => {
@@ -46,7 +48,7 @@ router.post('/signup', async (req, res) => {
         const userId = user._id
         // Add random balance between 1 - 10000 for newly created user
         await Account.create({ userId, balance: 1 + Math.random() * 10000 })
-        const token = jwt.sign({
+        const token = sign({
             userId
         }, JWT_SECRET)
 
@@ -60,9 +62,9 @@ router.post('/signup', async (req, res) => {
 
 })
 
-const signinBody = zod.object({
-    username: zod.string().email(),
-    password: zod.string()
+const signinBody = object({
+    username: string().email(),
+    password: string()
 })
 
 router.post('/signin', async (req, res) => {
@@ -75,7 +77,7 @@ router.post('/signin', async (req, res) => {
     const user = await User.findOne({ username: req.body.username, password: req.body.password })
     if (user) {
         const userId = user._id
-        const token = jwt.sign({ userId }, JWT_SECRET)
+        const token = sign({ userId }, JWT_SECRET)
         return res.status(200).json({
             token
         })
@@ -86,10 +88,10 @@ router.post('/signin', async (req, res) => {
     }
 })
 
-const updateuserBody = zod.object({
-    password: zod.string().min(6).optional(),
-    firstName: zod.string().optional(),
-    lastName: zod.string().optional()
+const updateuserBody = object({
+    password: string().min(6).optional(),
+    firstName: string().optional(),
+    lastName: string().optional()
 })
 
 router.put('/', authMiddleware, (req, res) => {
@@ -148,4 +150,4 @@ router.get('/bulk', authMiddleware, async (req, res) => {
 
 })
 
-module.exports = router
+export default router

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+import { connect, Schema, model } from 'mongoose'
 
-mongoose.connect('mongodb+srv://singanoodiranjana:aJmn3bDkrMOf1QD6@cluster0.4qv8rg4.mongodb.net/paytm')
+connect('mongodb+srv://singanoodiranjana:aJmn3bDkrMOf1QD6@cluster0.4qv8rg4.mongodb.net/paytm')
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
     username: {
         type: String,
         required: true,
@@ -31,9 +31,9 @@ const userSchema = mongoose.Schema({
     }
 })
 
-const accountSchema = mongoose.Schema({
+const accountSchema = Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
@@ -43,10 +43,10 @@ const accountSchema = mongoose.Schema({
     }
 })
 
-const User = mongoose.model('User', userSchema)
-const Account = mongoose.model('Account', accountSchema)
+const User = model('User', userSchema)
+const Account = model('Account', accountSchema)
 
-module.exports = {
+export default {
     User,
     Account
 }

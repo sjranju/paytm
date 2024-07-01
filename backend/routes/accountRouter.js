@@ -1,9 +1,10 @@
-const express = require('express')
-const { Account } = require('../db')
-const router = express.Router()
-const zod = require('zod')
-const { default: mongoose } = require('mongoose')
-const authMiddleware = require('../middleware')
+import { Router } from 'express'
+import db from '../db.js'
+const router = Router()
+import { object, string, number } from 'zod'
+import { default as mongoose } from 'mongoose'
+import authMiddleware from '../middleware.js'
+const { Account } = db
 
 router.get('/balance', authMiddleware, async (req, res) => {
     const userAccount = await Account.findOne({ userId: req.userId })
@@ -12,9 +13,9 @@ router.get('/balance', authMiddleware, async (req, res) => {
     })
 })
 
-const transferBody = zod.object({
-    to: zod.string(),
-    amount: zod.number()
+const transferBody = object({
+    to: string(),
+    amount: number()
 })
 
 router.post('/transfer', authMiddleware, async (req, res) => {
@@ -72,4 +73,4 @@ router.post('/transfer', authMiddleware, async (req, res) => {
 
 })
 
-module.exports = router
+export default router

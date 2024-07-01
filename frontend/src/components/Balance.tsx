@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const Balance = () => {
 
-    const { data, isSuccess, isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['balance'],
         queryFn: async () => {
             const token = localStorage.getItem('token')
