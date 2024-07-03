@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import Skeleton from "react-loading-skeleton"
 import 'react-loading-skeleton/dist/skeleton.css'
+import { REACT_APP_BACKEND_URL } from "../utils/interface"
 
 const Balance = () => {
 
@@ -9,7 +10,7 @@ const Balance = () => {
         queryKey: ['balance'],
         queryFn: async () => {
             const token = localStorage.getItem('token')
-            const response = await axios('http://localhost:3001/api/v1/account/balance', {
+            const response = await axios(`${REACT_APP_BACKEND_URL}/api/v1/account/balance`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`

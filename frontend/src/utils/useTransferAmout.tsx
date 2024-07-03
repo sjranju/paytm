@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { REACT_APP_BACKEND_URL } from './interface';
 
 type amountData = {
     amount: number,
@@ -13,7 +14,7 @@ const useTransferAmount = () => {
     const transferAmountMutation = useMutation({
         mutationKey: ['transferAmount'],
         mutationFn: async (accountData: amountData) =>
-            await axios.post('http://localhost:3001/api/v1/account/transfer', {
+            await axios.post(`${REACT_APP_BACKEND_URL}/api/v1/account/transfer`, {
                 to: accountData.id,
                 amount: accountData.amount
             }, {
