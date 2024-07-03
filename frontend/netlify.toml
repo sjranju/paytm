@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "vite build"
 [[redirects]]
   from = "/api/v1/*"
   to = "https://payment-application-backend.netlify.app/.netlify/functions/:splat"
