@@ -20,7 +20,6 @@ const Users = () => {
                 {
                     headers: {
                         Authorization: 'Bearer ' + token,
-                        "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                     }
                 }
             )

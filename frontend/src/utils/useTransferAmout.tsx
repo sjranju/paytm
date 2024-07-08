@@ -20,7 +20,6 @@ const useTransferAmount = () => {
             }, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
-                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
         ,

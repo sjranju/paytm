@@ -14,7 +14,6 @@ const Balance = () => {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
             if (response.data) {

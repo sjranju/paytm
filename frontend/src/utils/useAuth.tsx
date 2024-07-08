@@ -10,7 +10,6 @@ const useAuth = () => {
                 method: 'GET',
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token'),
-                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
             const { username, firstName }: { username: string, firstName: string } = response.data
