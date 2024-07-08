@@ -1,7 +1,7 @@
 [build]
   command = "vite build"
 [[redirects]]
-  from = "/*"
-  to = "/"
+  from = "/api*"
+  to = "https://payment-application-backend.netlify.app/.netlify/functions/:splat"
   status = 200
   force = true
