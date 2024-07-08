@@ -2,6 +2,6 @@
   command = "vite build"
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/"
   status = 200
   force = true
