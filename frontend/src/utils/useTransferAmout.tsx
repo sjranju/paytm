@@ -19,7 +19,8 @@ const useTransferAmount = () => {
                 amount: accountData.amount
             }, {
                 headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
         ,

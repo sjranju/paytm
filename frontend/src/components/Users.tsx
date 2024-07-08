@@ -19,7 +19,8 @@ const Users = () => {
             const response = await axios.get(REACT_APP_BACKEND_URL + `/api/v1/user/bulk?filter=` + filter,
                 {
                     headers: {
-                        Authorization: 'Bearer ' + token
+                        Authorization: 'Bearer ' + token,
+                        "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                     }
                 }
             )

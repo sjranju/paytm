@@ -13,7 +13,8 @@ const Balance = () => {
             const response = await axios(REACT_APP_BACKEND_URL + '/api/v1/account/balance', {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
+                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
             if (response.data) {

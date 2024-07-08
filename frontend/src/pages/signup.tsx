@@ -34,7 +34,12 @@ const Signup = () => {
                         lastName,
                         username,
                         password
-                    })
+                    },
+                        {
+                            headers:
+                                { "Access-Control-Allow-Origin": 'https://payment-application.netlify.app' }
+                        }
+                    )
                     if (response.status !== 200) {
                         setError(response.data.message)
                     } else {

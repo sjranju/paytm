@@ -34,7 +34,11 @@ function Signin() {
                     const response = await axios.post(REACT_APP_BACKEND_URL + '/api/v1/user/signin', {
                         username,
                         password
-                    })
+                    },
+                        {
+                            headers:
+                                { "Access-Control-Allow-Origin": 'https://payment-application.netlify.app' }
+                        })
                     if (response.status !== 200) {
                         setError(response.data.message)
                     } else {

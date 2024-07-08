@@ -9,7 +9,8 @@ const useAuth = () => {
             const response = await axios(`${REACT_APP_BACKEND_URL}/api/v1/user/me`, {
                 method: 'GET',
                 headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                    "Access-Control-Allow-Origin": 'https://payment-application.netlify.app'
                 }
             })
             const { username, firstName }: { username: string, firstName: string } = response.data
