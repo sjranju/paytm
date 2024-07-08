@@ -6,6 +6,7 @@ import InputBox from "../components/InputBox"
 import SubHeader from "../components/SubHeader"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { REACT_APP_BACKEND_URL } from "../utils/interface"
 
 const Signup = () => {
 
@@ -28,7 +29,7 @@ const Signup = () => {
                 <InputBox onChange={e => setUsername(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
                 <InputBox onChange={e => setPassword(e.target.value)} label="Password" placeholder="" type='password' />
                 <Button label='Sign Up' onclick={async () => {
-                    const response = await axios.post('REACT_APP_BACKEND_URL/api/v1/user/signup', {
+                    const response = await axios.post(REACT_APP_BACKEND_URL + '/api/v1/user/signup', {
                         firstName,
                         lastName,
                         username,
