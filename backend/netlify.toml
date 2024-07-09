@@ -9,6 +9,6 @@
   status = 200
   to = "/.netlify/functions/api/:splat"
 [[headers]]
-  for = "/*" # you can configure the correct paths here
+  for = "/*"
   [headers.values]
     access-control-allow-origin = "*"
