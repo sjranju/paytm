@@ -10,22 +10,26 @@ import ProtectedRoute from './utils/ProtectedRoute.js'
 
 const router = createHashRouter([
   {
-    path: '/signup',
-    element: <Signup />
-  }, {
-    path: '/signin',
-    element: <Signin />
-  }, {
-    path: '/dashboard',
-    element: <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }, {
-    path: '/send',
-    element: <ProtectedRoute>
-      <SendMoney />
-    </ProtectedRoute>
-  }
+    path: '/',
+    element:
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>,
+    children: [
+      {
+        path: '/signup',
+        element: <Signup />
+      }, {
+        path: '/signin',
+        element: <Signin />
+      }, {
+        path: '/send',
+        element: <ProtectedRoute>
+          <SendMoney />
+        </ProtectedRoute>
+      }
+    ]
+  },
 ])
 
 const queryClient = new QueryClient
