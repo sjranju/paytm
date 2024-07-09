@@ -7,7 +7,7 @@
   force = true
   from = "/api/*"
   status = 200
-  to = "/.netlify/functions/api/v1/:splat"
+  to = "/.netlify/functions/api/:splat"
   headers = {X-From = "Netlify"}
 [[headers]]
   for = "/*"
