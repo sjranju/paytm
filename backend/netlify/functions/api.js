@@ -7,7 +7,7 @@ const app = express();
 
 // Add CORS headers to allow everything
 const corsOptions = {
-    origin: '*',
+    origin: 'https://payment-application.netlify.app',
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
     optionSuccessStatus: 200,
@@ -23,7 +23,7 @@ const corsOptions = {
 const HEADERS = {
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
     'Content-Type': 'application/json',
     'Access-Control-Max-Age': '86400'
 };
