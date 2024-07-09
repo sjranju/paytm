@@ -20,10 +20,18 @@ const corsOptions = {
     ],
 };
 
+const HEADERS = {
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Access-Control-Max-Age': '86400'
+};
+
 app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', cors(corsOptions));
+app.options('*', (req, res) => res.set(HEADERS).status(204).send());
 
 // Middleware to handle JSON requests
 app.use(express.json());

@@ -8,7 +8,11 @@ const { Account } = db
 
 router.get('/balance', authMiddleware, async (req, res) => {
     const userAccount = await Account.findOne({ userId: req.userId })
-    res.status(200).json({
+    res.status(200).header({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTION",
+        "Content-Type": "application/json"
+    }).json({
         balance: userAccount.balance
     })
 })
@@ -29,12 +33,20 @@ router.post('/transfer', authMiddleware, async (req, res) => {
             const fromUser = await Account.findOne({ userId: req.userId }).session(session)
             if (!fromUser._id) {
                 await session.abortTransaction()
-                return res.status(400).json({
+                return res.status(400).header({
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                    "Content-Type": "application/json"
+                }).json({
                     message: 'From account is invalid'
                 })
             } else if (fromUser.balance < amount) {
                 await session.abortTransaction()
-                return res.status(400).json({
+                return res.status(400).header({
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                    "Content-Type": "application/json"
+                }).json({
                     message: 'Insufficient balance'
                 })
             }
@@ -43,7 +55,11 @@ router.post('/transfer', authMiddleware, async (req, res) => {
             const toUser = await Account.findOne({ userId: to }).session(session)
             if (!toUser._id) {
                 await session.abortTransaction()
-                res.status(400).json({
+                res.status(400).header({
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                    "Content-Type": "application/json"
+                }).json({
                     message: 'To account is invalid'
                 })
             }
@@ -60,15 +76,27 @@ router.post('/transfer', authMiddleware, async (req, res) => {
             }).session(session)
             console.log(resp)
             await session.commitTransaction()
-            res.status(200).json({
+            res.status(200).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json({
                 message: 'Transfer successful'
             })
         } catch (error) {
             await session.abortTransaction()
-            res.status(402).json(error)
+            res.status(402).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json(error)
         }
     } else {
-        return res.status(401).json(reqBody.error)
+        return res.status(401).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json(reqBody.error)
     }
 
 })
