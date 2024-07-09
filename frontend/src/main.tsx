@@ -1,21 +1,24 @@
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import Signup from './pages/signup.js'
 import Signin from './pages/signin.js'
 import Dashboard from './pages/dashboard.js'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import SendMoney from './components/SendMoney.js'
 import ProtectedRoute from './utils/ProtectedRoute.js'
+import App from './App.js'
 
 const router = createHashRouter([
   {
     path: '/',
-    element:
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>,
+    element: <App />,
     children: [
+      {
+        path: '/',
+        element: <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      },
       {
         path: '/signup',
         element: <Signup />
@@ -32,12 +35,8 @@ const router = createHashRouter([
   },
 ])
 
-const queryClient = new QueryClient
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
-  <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
-  </QueryClientProvider>
+  <RouterProvider router={router} />
   // </React.StrictMode>,
 )
