@@ -5,14 +5,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[[redirects]]
-  from = "/api/v1/*"
-  to = "https://payment-application-backend.netlify.app/.netlify/functions/api/:splat"
-  status = 200
-  force = true
-
-[[headers]]
-  for = "/*"
-    [headers.values]
-    Access-Control-Allow-Origin = "*"
