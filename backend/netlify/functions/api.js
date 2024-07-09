@@ -1,21 +1,27 @@
-import Express from 'express';
+import express from 'express';
 import serverless from 'serverless-http';
-import router from '../../routes/index.js'
+import router from '../../routes/index.js';
 import cors from 'cors';
 
-export async function handler(event, context) {
-    const app = Express();
-    // Add CORS headers to allow everything
-    app.use(cors({
-        origin: '*', // Allows all origins
-        methods: 'GET,PUT,POST,DELETE,OPTIONS', // Allowed methods
-        allowedHeaders: 'Content-Type,Authorization' // Allowed headers
-    }));
-    app.options('*', cors())
-    app.use(Express.json())
-    app.use('/api/v1', router);
-    return serverless(app)(event, context);
+const app = express();
+
+// Add CORS headers to allow everything
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization'
 };
 
-// Start it listening.
-// app.listen(port, () => console.log(`Payments data app listening on port ${port}!`));
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Middleware to handle JSON requests
+app.use(express.json());
+
+// Use the routes defined in the router
+app.use('/api/v1', router);
+
+// Export the handler
+export const handler = serverless(app);
