@@ -13,10 +13,10 @@ const corsOptions = {
     optionSuccessStatus: 200,
     allowedHeaders: [
         "Origin",
-        "Content - Type",
+        "Content-Type",
         "Accept",
         "Authorization",
-        "X - Request - With",
+        "X-Request-With",
     ],
 };
 
