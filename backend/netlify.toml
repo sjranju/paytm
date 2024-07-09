@@ -8,3 +8,5 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+[headers.values]
+Access-Control-Allow-Origin = "”
