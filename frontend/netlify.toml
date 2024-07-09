@@ -1,7 +1,7 @@
 [build]
   command = "vite build"
 [[redirects]]
-  from = "/https://payment-application.netlify.app/"
+  from = "/https://payment-application.netlify.app/*"
   to = "https://payment-application-backend.netlify.app/.netlify/functions/:splat"
   status = 200
   force = true
@@ -10,7 +10,6 @@
   to = "/index.html"
   status = 200
 [[headers]]
-  # Define which paths this specific [[headers]] block will cover.
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
