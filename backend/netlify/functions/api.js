@@ -11,6 +11,7 @@ export async function handler(event, context) {
         methods: 'GET,PUT,POST,DELETE,OPTIONS', // Allowed methods
         allowedHeaders: 'Content-Type,Authorization' // Allowed headers
     }));
+    app.options('*', cors())
     app.use(Express.json())
     app.use('/api/v1', router);
     return serverless(app)(event, context);
