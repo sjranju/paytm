@@ -18,9 +18,17 @@ const signupBody = object({
 router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
-        return res.status(200).json({ username: user.username, firstName: user.firstName })
+        return res.status(200).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({ username: user.username, firstName: user.firstName })
     } else {
-        return res.status(401).json({
+        return res.status(401).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             'message': 'Invalid token'
         })
     }
@@ -30,12 +38,20 @@ router.post('/signup', async (req, res) => {
     try {
         const { success } = signupBody.safeParse(req.body)
         if (!success) {
-            return res.status(411).json({ message: "Email already taken / Incorrect inputs" })
+            return res.status(411).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json({ message: "Email already taken / Incorrect inputs" })
         }
 
         const existingUser = await User.findOne({ username: req.body.username, password: req.body.password })
         if (existingUser) {
-            return res.status(411).json({ message: "Email already taken / Incorrect inputs" })
+            return res.status(411).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json({ message: "Email already taken / Incorrect inputs" })
         }
 
         const user = await User.create({
@@ -52,12 +68,20 @@ router.post('/signup', async (req, res) => {
             userId
         }, JWT_SECRET)
 
-        return res.status(200).json({
+        return res.status(200).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             message: "User created successfully",
             token
         })
     } catch (error) {
-        return res.status(400).json(error)
+        return res.status(400).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json(error)
     }
 
 })
@@ -70,7 +94,11 @@ const signinBody = object({
 router.post('/signin', async (req, res) => {
     const { success } = signinBody.safeParse(req.body)
     if (!success) {
-        return res.status(411).json({
+        return res.status(411).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             message: 'Error while logging in'
         })
     }
@@ -78,11 +106,19 @@ router.post('/signin', async (req, res) => {
     if (user) {
         const userId = user._id
         const token = sign({ userId }, JWT_SECRET)
-        return res.status(200).json({
+        return res.status(200).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             token
         })
     } else {
-        return res.status(411).json({
+        return res.status(411).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             message: 'Error while logging in'
         })
     }
@@ -97,7 +133,11 @@ const updateuserBody = object({
 router.put('/', authMiddleware, (req, res) => {
     const { success, error } = updateuserBody.safeParse(req.body)
     if (!success) {
-        res.status(411).json({
+        res.status(411).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             message: error
         })
     }
@@ -107,12 +147,20 @@ router.put('/', authMiddleware, (req, res) => {
         lastName: req.body.lastName
     })
         .then(() => {
-            res.status(200).json({
+            res.status(200).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json({
                 message: 'User info updated successfully'
             })
         })
         .catch(() => {
-            res.status(411).json({
+            res.status(411).header({
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTION",
+                "Content-Type": "application/json"
+            }).json({
                 message: ' Error while updating information'
             })
         })
@@ -138,7 +186,11 @@ router.get('/bulk', authMiddleware, async (req, res) => {
     })
 
     if (users) {
-        res.status(200).json({
+        res.status(200).header({
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTION",
+            "Content-Type": "application/json"
+        }).json({
             user: users.map((user) => ({
                 username: user.username,
                 firstName: user.firstName,
