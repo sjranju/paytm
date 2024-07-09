@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
 import Signup from './pages/signup.js'
 import Signin from './pages/signin.js'
 import Dashboard from './pages/dashboard.js'
@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import SendMoney from './components/SendMoney.js'
 import ProtectedRoute from './utils/ProtectedRoute.js'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/signup',
     element: <Signup />
