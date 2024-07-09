@@ -1,14 +1,17 @@
 [build]
   command = "vite build"
+
 [[redirects]]
-  from = "https://payment-application.netlify.app/*"
-  to = "https://payment-application-backend.netlify.app/.netlify/functions/:splat"
+  from = "/api/v1/*"
+  to = "https://payment-application-backend.netlify.app/.netlify/functions/api/:splat"
   status = 200
   force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
 [[headers]]
   for = "/*"
     [headers.values]
