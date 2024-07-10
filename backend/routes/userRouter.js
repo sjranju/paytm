@@ -27,11 +27,12 @@ router.get('/me', authMiddleware, async (req, res) => {
 })
 
 router.options('/me', (req, res) => {
-    return res.status(401).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 router.post('/signup', async (req, res) => {
@@ -71,11 +72,12 @@ router.post('/signup', async (req, res) => {
 })
 
 router.options('/signup', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 const signinBody = object({
@@ -111,11 +113,12 @@ const updateuserBody = object({
 })
 
 router.options('/signin', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTION",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 router.put('/', authMiddleware, (req, res) => {
@@ -147,11 +150,12 @@ router.put('/', authMiddleware, (req, res) => {
 })
 
 router.options('/', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "PUT, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 router.get('/bulk', authMiddleware, async (req, res) => {
@@ -187,11 +191,12 @@ router.get('/bulk', authMiddleware, async (req, res) => {
 })
 
 router.options('/bulk', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 export default router

@@ -14,11 +14,12 @@ router.get('/balance', authMiddleware, async (req, res) => {
 })
 
 router.options('/balance', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 const transferBody = object({
@@ -82,11 +83,12 @@ router.post('/transfer', authMiddleware, async (req, res) => {
 })
 
 router.options('/transfer', (req, res) => {
-    return res.status(204).header({
+    res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
-    })
+    });
+    return res.status(204).send();
 })
 
 export default router
