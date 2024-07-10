@@ -38,7 +38,7 @@ app.options('*', (req, res) => res.status(204).header(HEADERS))
 app.use(express.json());
 
 // Use the routes defined in the router
-app.use('/api/v1', router);
+app.use('.netlify/functions/api', router);
 
 // Export the handler
 export const handler = serverless(app);
