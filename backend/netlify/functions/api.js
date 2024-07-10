@@ -7,7 +7,7 @@ const app = express();
 
 // Add CORS headers to allow everything
 const corsOptions = {
-    origin: ['https://payment-application.netlify.app'],
+    origin: ['https://payment-application.netlify.app', 'http://localhost:5173/'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
     preflightContinue: true,
@@ -24,7 +24,7 @@ const corsOptions = {
 const HEADERS = {
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
-    'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
+    'Access-Control-Allow-Origin': ['https://payment-application.netlify.app', 'http://localhost:5173/'],
     'Content-Type': 'application/json',
     'Access-Control-Max-Age': '86400',
     "Access-Control-Allow-Credentials": "true"
@@ -33,7 +33,8 @@ const HEADERS = {
 app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', (req, res) => res.set('headers', HEADERS).status(204).send())
+// app.options('*', (req, res) => res.set('headers', HEADERS).status(204).send())
+app.options('*', cors(corsOptions))
 
 // Middleware to handle JSON requests
 app.use(express.json());
