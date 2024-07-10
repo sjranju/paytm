@@ -32,7 +32,7 @@ const HEADERS = {
 app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', (req, res) => res.set(HEADERS).status(204).send());
+app.options('*', (req, res) => res.status(204).header(HEADERS))
 
 // Middleware to handle JSON requests
 app.use(express.json());
