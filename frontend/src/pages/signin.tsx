@@ -17,7 +17,7 @@ function Signin() {
 
     useEffect(() => {
         if (localStorage.getItem('token')?.length) {
-            navigate('/dashboard')
+            navigate('/')
         }
     }, [])
 
@@ -39,7 +39,7 @@ function Signin() {
                         setError(response.data.message)
                     } else {
                         localStorage.setItem("token", response.data.token)
-                        navigate('/dashboard')
+                        navigate('/')
                     }
                 }} />
                 {

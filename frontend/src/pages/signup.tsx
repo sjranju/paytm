@@ -39,7 +39,7 @@ const Signup = () => {
                         setError(response.data.message)
                     } else {
                         localStorage.setItem("token", response.data.token)
-                        navigate('/dashboard')
+                        navigate('/')
                     }
                 }} />
                 {error &&
