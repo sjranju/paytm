@@ -25,7 +25,7 @@ const HEADERS = {
     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
     'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
     'Content-Type': 'application/json',
-    'Access-Control-Max-Age': '2592000',
+    'Access-Control-Max-Age': '86400',
     "Access-Control-Allow-Credentials": "true"
 };
 
