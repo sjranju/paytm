@@ -7,7 +7,7 @@ const app = express();
 
 // Add CORS headers to allow everything
 const corsOptions = {
-    origin: ['https://payment-application.netlify.app', 'http://localhost:5173/'],
+    origin: true,
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
     preflightContinue: true,
