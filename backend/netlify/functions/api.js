@@ -7,9 +7,10 @@ const app = express();
 
 // Add CORS headers to allow everything
 const corsOptions = {
-    origin: 'https://payment-application.netlify.app',
+    origin: ['https://payment-application.netlify.app'],
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
     credentials: true,
+    preflightContinue: true,
     optionSuccessStatus: 200,
     allowedHeaders: [
         "Origin",
@@ -32,13 +33,13 @@ const HEADERS = {
 app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', (req, res) => res.status(204).header(HEADERS))
+app.options('*', (req, res) => res.set('headers', HEADERS).status(204).send())
 
 // Middleware to handle JSON requests
 app.use(express.json());
 
 // Use the routes defined in the router
-app.use('.netlify/functions/api', router);
+app.use('/api/v1', router);
 
 // Export the handler
 export const handler = serverless(app);
