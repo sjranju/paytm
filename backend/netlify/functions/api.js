@@ -16,8 +16,12 @@ export async function handler(event, context) {
     };
 
     // app.options('*', cors(corsOptions))
-    app.use(cors(corsOptions))
-
+    // app.use(cors(corsOptions))
+    app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "https://payment-application.netlify.app");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next()
+    })
     // Handle preflight requests
     // app.options('*', (req, res) => res.set(corsOptions).status(204).send())
 
