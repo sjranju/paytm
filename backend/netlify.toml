@@ -1,11 +1,19 @@
 [build]
   functions = "netlify/functions/"
+
 [functions]
   external_node_modules = ["express"]
   node_bundler = "esbuild"
+
 [[redirects]]
-  force = true
   from = "/api/*"
-  status = 200
   to = "/.netlify/functions/api/:splat"
-  headers = {X-From = "Netlify"}
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    headers = {X-From = "Netlify"}
+

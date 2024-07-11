@@ -17,15 +17,16 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', (req, res) => {
-    res.set({
-        'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
-        'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        'Access-Control-Allow-Credentials': 'true'
-    });
-    res.sendStatus(204);
-});
+// app.options('*', (req, res) => {
+//     res.set({
+//         'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
+//         'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
+//         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+//         'Access-Control-Allow-Credentials': 'true'
+//     });
+//     res.sendStatus(204);
+// });
+app.options('*', cors(corsOptions))
 
 // Middleware to handle JSON requests
 app.use(express.json());
