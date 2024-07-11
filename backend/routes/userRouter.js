@@ -15,7 +15,15 @@ const signupBody = object({
     lastName: string()
 })
 
-router.options('/me', cors());
+router.options('/me', (req, res) => {
+    console.log('hellooooooo')
+    return res.set({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
+    }).status(204).send();
+});
 
 router.get('/me', cors(), authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
