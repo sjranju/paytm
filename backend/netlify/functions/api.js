@@ -1,6 +1,6 @@
 import express from 'express';
 import serverless from 'serverless-http';
-// import router from './routes/index.js';
+import router from './routes/index.js';
 import cors from 'cors';
 
 console.log('Heyyyy')
@@ -17,12 +17,12 @@ const corsOptions = {
     // optionsSuccessStatus: 204,
 };
 
-// app.use(cors({
-//     origin: 'https://payment-application.netlify.app',
-//     credentials: true,
-//     preflightContinue: true,
-//     optionsSuccessStatus: 204,
-// }));
+app.use(cors({
+    origin: 'https://payment-application.netlify.app',
+    credentials: true,
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+}));
 
 // Handle preflight requests
 // app.options('*', (req, res) => {
@@ -40,12 +40,12 @@ const corsOptions = {
 app.use(express.json());
 
 // Use the routes defined in the router
-app.get('/api/123', (req, res) => {
-    console.log('hahahahaah')
-    return res.send({
-        Heyyy: 'Whats up'
-    })
-});
+// app.get('/api/123', (req, res) => {
+//     console.log('hahahahaah')
+//     return res.send({
+//         Heyyy: 'Whats up'
+//     })
+// });
 
 app.get('/123', (req, res) => {
     console.log('hahahahaah1111')
@@ -53,7 +53,7 @@ app.get('/123', (req, res) => {
         Heyyy: 'Whats up'
     })
 });
-// app.use('api/', router);
+app.use('/api/', router);
 
 app.use((err, req, res, next) => {
     console.log('In global error handler', { err })
