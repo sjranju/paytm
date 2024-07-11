@@ -19,7 +19,8 @@ router.options('/me', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
     });
     return res.status(204).send();
 })
@@ -39,7 +40,8 @@ router.options('/signup', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
     });
     return res.status(204).send();
 })
@@ -90,7 +92,8 @@ router.options('/signin', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
     });
     return res.status(204).send();
 })
@@ -127,7 +130,8 @@ router.options('/', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "PUT, OPTIONS",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
     });
     return res.status(204).send();
 })
@@ -138,7 +142,8 @@ router.put('/', authMiddleware, (req, res) => {
         res.status(411).header({
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Access-Control-Max-Age": 86400
         }).json({
             message: error
         })
@@ -164,7 +169,8 @@ router.options('/bulk', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Max-Age": 86400
     });
     return res.status(204).send();
 })

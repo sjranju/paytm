@@ -31,10 +31,16 @@ function Signin() {
                 <InputBox onChange={e => setUsername(e.target.value)} label="Email" placeholder="johndoe@gmail.com" type='text' />
                 <InputBox onChange={e => setPassword(e.target.value)} label="Password" placeholder="" type='password' />
                 <Button label='Sign In' onclick={async () => {
-                    const response = await axios.post(REACT_APP_BACKEND_URL + '/api/user/signin', {
-                        username,
-                        password
-                    })
+                    const response = await axios.post(REACT_APP_BACKEND_URL + '/api/user/signin',
+                        {
+                            username,
+                            password
+                        }, {
+                        headers: {
+                            "Content-Type": 'application/json'
+                        }
+                    }
+                    )
                     if (response.status !== 200) {
                         setError(response.data.message)
                     } else {
