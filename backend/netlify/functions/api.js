@@ -26,7 +26,7 @@ app.use(cors(corsOptions));
 //     });
 //     res.sendStatus(204);
 // });
-app.options('*', cors(corsOptions))
+// app.options('*', cors(corsOptions))
 
 // Middleware to handle JSON requests
 app.use(express.json());
