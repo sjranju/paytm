@@ -3,33 +3,35 @@ import serverless from 'serverless-http';
 import router from '../../routes/index.js';
 import cors from 'cors';
 
+const app = express();
 
-export async function handler(event, context) {
-    const app = express();
+// Add CORS headers to allow everything
+const corsOptions = {
+    origin: 'https://payment-application.netlify.app',
+    credentials: true,
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    optionsSuccessStatus: 204,
+};
 
-    // Add CORS headers to allow everything
-    const corsOptions = {
-        origin: 'https://payment-application.netlify.app',
-        credentials: true,
-        preflightContinue: true,
-        optionSuccessStatus: 200,
-    };
+app.use(cors(corsOptions));
 
-    // app.options('*', cors(corsOptions))
-    // app.use(cors(corsOptions))
-    app.use((req, res, next) => {
-        res.header("Access-Control-Allow-Origin", "https://payment-application.netlify.app");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next()
-    })
-    // Handle preflight requests
-    // app.options('*', (req, res) => res.set(corsOptions).status(204).send())
+// Handle preflight requests
+app.options('*', (req, res) => {
+    res.set({
+        'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
+        'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS, PATCH',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Credentials': 'true'
+    });
+    res.sendStatus(204);
+});
 
-    // Middleware to handle JSON requests
-    app.use(express.json());
+// Middleware to handle JSON requests
+app.use(express.json());
 
-    // Use the routes defined in the router
-    app.use('/api/', router);
-    return serverless(app)(event, context);
-}
+// Use the routes defined in the router
+app.use('/api/', router);
+
 // Export the handler
+export const handler = serverless(app);

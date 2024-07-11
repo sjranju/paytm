@@ -15,15 +15,16 @@ const signupBody = object({
     lastName: string()
 })
 
-router.options('/me', (req, res) => {
+router.options('*', (req, res) => {
     res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
+        'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        'Access-Control-Max-Age': 86400,
+        'Access-Control-Allow-Credentials': 'true'
     });
-    return res.status(204).send();
-})
+    return res.sendStatus(204);
+});
 
 router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
@@ -36,15 +37,6 @@ router.get('/me', authMiddleware, async (req, res) => {
     }
 })
 
-router.options('/signup', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
-    });
-    return res.status(204).send();
-})
 
 router.post('/signup', async (req, res) => {
     try {
@@ -88,15 +80,6 @@ const signinBody = object({
     password: string()
 })
 
-router.options('/signin', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
-    });
-    return res.status(204).send();
-})
 
 router.post('/signin', async (req, res) => {
     const { success } = signinBody.safeParse(req.body)
@@ -126,16 +109,6 @@ const updateuserBody = object({
     lastName: string().optional()
 })
 
-router.options('/', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "PUT, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
-    });
-    return res.status(204).send();
-})
-
 router.put('/', authMiddleware, (req, res) => {
     const { success, error } = updateuserBody.safeParse(req.body)
     if (!success) {
@@ -163,16 +136,6 @@ router.put('/', authMiddleware, (req, res) => {
                 message: ' Error while updating information'
             })
         })
-})
-
-router.options('/bulk', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
-    });
-    return res.status(204).send();
 })
 
 router.get('/bulk', authMiddleware, async (req, res) => {
