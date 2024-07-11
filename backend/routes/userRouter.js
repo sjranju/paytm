@@ -25,7 +25,7 @@ router.options('/me', (req, res) => {
     }).status(204).send();
 });
 
-router.get('/me', cors(), authMiddleware, async (req, res) => {
+router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
         return res.status(200).json({ username: user.username, firstName: user.firstName })
