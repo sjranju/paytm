@@ -38,13 +38,13 @@ app.use(cors({
 app.use(express.json());
 
 // Use the routes defined in the router
-app.get('/123', (req, res) => {
+app.get('api/123', (req, res) => {
     console.log('hahahahaah')
     return res.send({
         Heyyy: 'Whats up'
     })
 });
-app.use('/', router);
+app.use('api/', router);
 
 app.use((err, req, res, next) => {
     console.log('In global error handler', { err })
