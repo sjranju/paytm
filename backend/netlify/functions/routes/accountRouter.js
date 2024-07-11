@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import db from '../db.js'
+import db from '../../../db.js'
 const router = Router()
 import { object, string, number } from 'zod'
 import { default as mongoose } from 'mongoose'
-import authMiddleware from '../middleware.js'
+import authMiddleware from '../../../middleware.js'
 const { Account } = db
 
 router.options('/balance', (req, res) => {

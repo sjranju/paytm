@@ -2,9 +2,9 @@ import { Router } from 'express'
 import { object, string } from "zod"
 import jwt from 'jsonwebtoken'
 const router = Router()
-import db from '../db.js'
-import JWT_SECRET from "../config.js"
-import authMiddleware from "../middleware.js"
+import db from '../../../db.js'
+import JWT_SECRET from "../../../config.js"
+import authMiddleware from "../../../middleware.js"
 const { User, Account } = db
 const { sign } = jwt
 
