@@ -38,6 +38,12 @@ app.use(cors({
 app.use(express.json());
 
 // Use the routes defined in the router
+app.get('/123', (req, res) => {
+    console.log('hahahahaah')
+    return res.send({
+        Heyyy: 'Whats up'
+    })
+});
 app.use('/api/', router);
 
 // Export the handler
