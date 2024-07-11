@@ -15,5 +15,3 @@
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    headers = {X-From = "Netlify"}
-
