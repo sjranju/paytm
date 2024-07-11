@@ -15,6 +15,15 @@ const signupBody = object({
     lastName: string()
 })
 
+router.options('/me', (req, res) => {
+    res.set({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Content-Type": "application/json"
+    });
+    return res.status(204).send();
+})
+
 router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
@@ -26,10 +35,10 @@ router.get('/me', authMiddleware, async (req, res) => {
     }
 })
 
-router.options('/me', (req, res) => {
+router.options('/signup', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
     });
     return res.status(204).send();
@@ -71,18 +80,19 @@ router.post('/signup', async (req, res) => {
 
 })
 
-router.options('/signup', (req, res) => {
+
+const signinBody = object({
+    username: string().email(),
+    password: string()
+})
+
+router.options('/signin', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Content-Type": "application/json"
     });
     return res.status(204).send();
-})
-
-const signinBody = object({
-    username: string().email(),
-    password: string()
 })
 
 router.post('/signin', async (req, res) => {
@@ -106,16 +116,17 @@ router.post('/signin', async (req, res) => {
     }
 })
 
+
 const updateuserBody = object({
     password: string().min(6).optional(),
     firstName: string().optional(),
     lastName: string().optional()
 })
 
-router.options('/signin', (req, res) => {
+router.options('/', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Methods": "PUT, OPTIONS",
         "Content-Type": "application/json"
     });
     return res.status(204).send();
@@ -149,10 +160,10 @@ router.put('/', authMiddleware, (req, res) => {
         })
 })
 
-router.options('/', (req, res) => {
+router.options('/bulk', (req, res) => {
     res.set({
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "PUT, OPTIONS",
+        "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Content-Type": "application/json"
     });
     return res.status(204).send();
@@ -188,15 +199,6 @@ router.get('/bulk', authMiddleware, async (req, res) => {
         })
     }
 
-})
-
-router.options('/bulk', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json"
-    });
-    return res.status(204).send();
 })
 
 export default router

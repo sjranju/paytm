@@ -30,7 +30,7 @@ app.use(cors(corsOptions))
 app.use(express.json());
 
 // Use the routes defined in the router
-app.use('/api/v1', router);
+app.use('/api/', router);
 
 // Export the handler
 export const handler = serverless(app);

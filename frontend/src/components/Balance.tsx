@@ -10,7 +10,7 @@ const Balance = () => {
         queryKey: ['balance'],
         queryFn: async () => {
             const token = localStorage.getItem('token')
-            const response = await axios(REACT_APP_BACKEND_URL + '/api/v1/account/balance', {
+            const response = await axios(REACT_APP_BACKEND_URL + '/api/account/balance', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,

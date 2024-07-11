@@ -14,7 +14,7 @@ const useTransferAmount = () => {
     const transferAmountMutation = useMutation({
         mutationKey: ['transferAmount'],
         mutationFn: async (accountData: amountData) =>
-            await axios.post(`${REACT_APP_BACKEND_URL}/api/v1/account/transfer`, {
+            await axios.post(`${REACT_APP_BACKEND_URL}/api/account/transfer`, {
                 to: accountData.id,
                 amount: accountData.amount
             }, {

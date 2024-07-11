@@ -16,7 +16,7 @@ const Users = () => {
         queryKey: ['filteredUsers'],
         queryFn: async () => {
             const token = localStorage.getItem('token')
-            const response = await axios.get(REACT_APP_BACKEND_URL + `/api/v1/user/bulk?filter=` + filter,
+            const response = await axios.get(REACT_APP_BACKEND_URL + `/api/user/bulk?filter=` + filter,
                 {
                     headers: {
                         Authorization: 'Bearer ' + token,
