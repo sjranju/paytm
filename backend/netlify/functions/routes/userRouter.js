@@ -16,13 +16,17 @@ const signupBody = object({
 })
 
 router.get('/me', authMiddleware, async (req, res) => {
-    const user = await User.findOne({ _id: req.userId })
-    if (user) {
-        return res.status(200).json({ username: user.username, firstName: user.firstName })
-    } else {
-        return res.status(401).json({
-            'message': 'Invalid token'
-        })
+    try {
+        const user = await User.findOne({ _id: req.userId })
+        if (user) {
+            return res.status(200).json({ username: user.username, firstName: user.firstName })
+        } else {
+            return res.status(401).json({
+                'message': 'Invalid token'
+            })
+        }
+    } catch (error) {
+        return res.status(400).json(error)
     }
 })
 
