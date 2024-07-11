@@ -3,6 +3,8 @@ import serverless from 'serverless-http';
 // import router from './routes/index.js';
 import cors from 'cors';
 
+console.log('Heyyyy')
+
 const app = express();
 
 // Add CORS headers to allow everything
