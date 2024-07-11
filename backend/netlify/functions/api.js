@@ -8,7 +8,7 @@ const app = express();
 // Add CORS headers to allow everything
 const corsOptions = {
     origin: true,
-    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
     preflightContinue: true,
     optionSuccessStatus: 200,
@@ -21,11 +21,10 @@ const corsOptions = {
     ],
 };
 
-app.use(cors(corsOptions));
-
+app.use(cors(corsOptions))
+    .options('*', (req, res) => res.send("X-Preflight-Response", "true")).end()
 // Handle preflight requests
 // app.options('*', (req, res) => res.set('headers', HEADERS).status(204).send())
-// app.options('*', cors(corsOptions))
 
 // Middleware to handle JSON requests
 app.use(express.json());
