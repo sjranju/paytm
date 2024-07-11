@@ -3,27 +3,29 @@ import serverless from 'serverless-http';
 import router from '../../routes/index.js';
 import cors from 'cors';
 
-const app = express();
 
-// Add CORS headers to allow everything
-const corsOptions = {
-    origin: 'https://payment-application.netlify.app/',
-    credentials: true,
-    preflightContinue: true,
-    optionSuccessStatus: 200,
-};
+export async function handler(event, context) {
+    const app = express();
 
-// app.options('*', cors(corsOptions))
-app.use(cors(corsOptions))
+    // Add CORS headers to allow everything
+    const corsOptions = {
+        origin: 'https://payment-application.netlify.app',
+        credentials: true,
+        preflightContinue: true,
+        optionSuccessStatus: 200,
+    };
 
-// Handle preflight requests
-// app.options('*', (req, res) => res.set(corsOptions).status(204).send())
+    // app.options('*', cors(corsOptions))
+    app.use(cors(corsOptions))
 
-// Middleware to handle JSON requests
-app.use(express.json());
+    // Handle preflight requests
+    // app.options('*', (req, res) => res.set(corsOptions).status(204).send())
 
-// Use the routes defined in the router
-app.use('/api/', router);
+    // Middleware to handle JSON requests
+    app.use(express.json());
 
+    // Use the routes defined in the router
+    app.use('/api/', router);
+    return serverless(app)(event, context);
+}
 // Export the handler
-export const handler = serverless(app);

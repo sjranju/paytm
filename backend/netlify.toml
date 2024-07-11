@@ -9,9 +9,3 @@
   status = 200
   to = "/.netlify/functions/api/:splat"
   headers = {X-From = "Netlify"}
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "POST, GET, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type"
