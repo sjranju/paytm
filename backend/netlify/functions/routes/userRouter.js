@@ -15,16 +15,6 @@ const signupBody = object({
     lastName: string()
 })
 
-router.options('/me', (req, res) => {
-    console.log('hellooooooo')
-    return res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json",
-        "Access-Control-Max-Age": 86400
-    }).status(204).send();
-});
-
 router.get('/me', authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
@@ -111,12 +101,7 @@ const updateuserBody = object({
 router.put('/', authMiddleware, (req, res) => {
     const { success, error } = updateuserBody.safeParse(req.body)
     if (!success) {
-        res.status(411).header({
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Content-Type": "application/json",
-            "Access-Control-Max-Age": 86400
-        }).json({
+        res.status(411).json({
             message: error
         })
     }

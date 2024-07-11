@@ -6,15 +6,6 @@ import { default as mongoose } from 'mongoose'
 import authMiddleware from '../../../middleware.js'
 const { Account } = db
 
-router.options('/balance', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, OPTIONS",
-        "Content-Type": "application/json"
-    });
-    return res.status(204).send();
-})
-
 router.get('/balance', authMiddleware, async (req, res) => {
     const userAccount = await Account.findOne({ userId: req.userId })
     res.status(200).json({
@@ -26,15 +17,6 @@ router.get('/balance', authMiddleware, async (req, res) => {
 const transferBody = object({
     to: string(),
     amount: number()
-})
-
-router.options('/transfer', (req, res) => {
-    res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Content-Type": "application/json"
-    });
-    return res.status(204).send();
 })
 
 router.post('/transfer', authMiddleware, async (req, res) => {
