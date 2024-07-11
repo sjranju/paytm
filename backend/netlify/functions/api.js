@@ -15,12 +15,12 @@ const corsOptions = {
     // optionsSuccessStatus: 204,
 };
 
-app.use(cors({
-    origin: 'https://payment-application.netlify.app',
-    credentials: true,
-    preflightContinue: true,
-    optionsSuccessStatus: 204,
-}));
+// app.use(cors({
+//     origin: 'https://payment-application.netlify.app',
+//     credentials: true,
+//     preflightContinue: true,
+//     optionsSuccessStatus: 204,
+// }));
 
 // Handle preflight requests
 // app.options('*', (req, res) => {
