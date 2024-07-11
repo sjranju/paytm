@@ -5,7 +5,6 @@ import cors from 'cors';
 
 const router = Router()
 
-router.use(cors())
 router.use('/user', userRouter)
 router.use('/account', accountRouter)
 

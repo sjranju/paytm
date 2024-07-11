@@ -44,7 +44,7 @@ app.get('/123', (req, res) => {
         Heyyy: 'Whats up'
     })
 });
-app.use('/api/', router);
+app.use('/', router);
 
 // Export the handler
 export const handler = serverless(app);
