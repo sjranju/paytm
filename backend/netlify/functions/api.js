@@ -46,5 +46,14 @@ app.get('/123', (req, res) => {
 });
 app.use('/', router);
 
+app.use((err, req, res, next) => {
+    console.log('In global error handler', { err })
+    if (res.headersSent) {
+        return next(err)
+    }
+    res.status(500)
+    res.render('error', { error: err })
+})
+
 // Export the handler
 export const handler = serverless(app);
