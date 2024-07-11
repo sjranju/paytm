@@ -15,18 +15,9 @@ const signupBody = object({
     lastName: string()
 })
 
-router.options('*', (req, res) => {
-    res.set({
-        'Access-Control-Allow-Origin': 'https://payment-application.netlify.app',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        'Access-Control-Max-Age': 86400,
-        'Access-Control-Allow-Credentials': 'true'
-    });
-    return res.sendStatus(204);
-});
+router.options('/me', cors());
 
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', cors(), authMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.userId })
     if (user) {
         return res.status(200).json({ username: user.username, firstName: user.firstName })
